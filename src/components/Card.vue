@@ -1,12 +1,13 @@
 <script setup>
 defineProps({
-  name: String,
+  id: Number,
+  title: String,
   imageUrl: String,
   price: Number,
   isFavorite: Boolean,
   isAdded: Boolean,
-  onClickAdd: Function,
-  onClickFavorite: Function
+  onClickFavorite: Function,
+  onClickAdd: Function
 })
 </script>
 
@@ -15,13 +16,16 @@ defineProps({
     class="relative bg-white border border-slate-100 rounded-3xl p-8 cursor-pointer transition hover:-translate-y-2 hover:shadow-xl"
   >
     <img
-      :src="!isFavorite ? '../../public/like-1.svg' : '../../public/like-2.svg'"
-      alt="like"
-      class="absolute"
+      v-if="onClickFavorite"
+      :src="!isFavorite ? '/like-1.svg' : '/like-2.svg'"
+      alt="Like 1"
+      class="absolute top-8 left-8"
       @click="onClickFavorite"
     />
+
     <img :src="imageUrl" alt="Sneaker" />
-    <p class="mt-2">{{ name }}</p>
+
+    <p class="mt-2">{{ title }}</p>
 
     <div class="flex justify-between mt-5">
       <div class="flex flex-col">
@@ -30,9 +34,10 @@ defineProps({
       </div>
 
       <img
+        v-if="onClickAdd"
         @click="onClickAdd"
-        :src="!isAdded ? '../../public/plus.svg' : '../../public/checked.svg'"
-        alt="plus"
+        :src="!isAdded ? '/plus.svg' : '/checked.svg'"
+        alt="Plus"
       />
     </div>
   </div>
